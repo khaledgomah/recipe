@@ -53,7 +53,7 @@ fun AppRoot() {
                     selectedTab=newIndex
             })
         },
-        topBar ={ TopAppBar(title = { Text("Restaurant") })}
+        //topBar ={ TopAppBar(title = { Text("Restaurant") })}
     ) { paddingValues ->
         AppNavigation(paddingValues,selectedTab)
 
