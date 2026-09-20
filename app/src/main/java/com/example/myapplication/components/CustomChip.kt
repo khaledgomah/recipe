@@ -1,6 +1,6 @@
 package com.example.myapplication.components
 
-import Category
+import com.example.myapplication.data.Category
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults

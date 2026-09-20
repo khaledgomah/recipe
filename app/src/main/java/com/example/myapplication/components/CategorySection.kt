@@ -12,7 +12,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import categories
+import com.example.myapplication.data.categories
 
 @Composable
 fun CategorySection(modifier: Modifier = Modifier)
