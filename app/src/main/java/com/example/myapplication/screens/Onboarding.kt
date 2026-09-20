@@ -27,13 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 
-
+val secondary: Long = 0xff70B9BE
 @Composable
 fun Onboarding(onClick: ()-> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xff70B9BE)).padding(16.dp)
+            .background(Color(secondary)).padding(16.dp)
     ){
         Image(
             modifier = Modifier
