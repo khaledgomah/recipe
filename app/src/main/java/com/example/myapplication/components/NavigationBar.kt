@@ -1,24 +1,17 @@
 package com.example.myapplication.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import com.example.myapplication.R
 import com.example.myapplication.navigation.Home
@@ -95,17 +88,7 @@ fun MyNavigationBar(
                 )
             }
         }
-        Box(
-            modifier = Modifier
-                .size(width = 56.dp, height = 56.dp)
-                .offset(y = (-32).dp)
-                .clip(shape = CircleShape)
-                .background(Color.Black)
-                .align(alignment = Alignment.TopCenter),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(painterResource(R.drawable.chef), null)
-        }
+
     }
 }
 
