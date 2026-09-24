@@ -33,3 +33,4 @@ fun CategorySection(modifier: Modifier = Modifier)
         }
     }
 }
+
