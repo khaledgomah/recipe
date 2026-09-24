@@ -15,18 +15,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.navigation3.runtime.NavKey
-import com.example.myapplication.components.MyNavigationBar
-import com.example.myapplication.navigation.AppBackStack
-import com.example.myapplication.navigation.AppNavigation
-import com.example.myapplication.navigation.Home
-import com.example.myapplication.navigation.Notifications
-import com.example.myapplication.navigation.OnboardingRoute
-import com.example.myapplication.navigation.Profile
-import com.example.myapplication.navigation.Search
+import com.example.myapplication.presentation.components.MyNavigationBar
+import com.example.myapplication.presentation.navigation.AppBackStack
+import com.example.myapplication.presentation.navigation.AppNavigation
+import com.example.myapplication.presentation.navigation.Home
+import com.example.myapplication.presentation.navigation.Notifications
+import com.example.myapplication.presentation.navigation.OnboardingRoute
+import com.example.myapplication.presentation.navigation.Profile
+import com.example.myapplication.presentation.navigation.Search
 import io.ktor.client.HttpClient
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
+
+import androidx.compose.ui.graphics.Color
 
 class MainActivity : ComponentActivity() {
 
@@ -80,6 +82,7 @@ fun AppRoot(
     val shouldShowBottomBar = currentRoute in topLevelRoutes
 
     Scaffold(
+        containerColor = Color.Transparent,
         bottomBar = {
             if (shouldShowBottomBar) {
                 MyNavigationBar(
