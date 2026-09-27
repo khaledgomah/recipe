@@ -1,12 +1,11 @@
 package com.example.myapplication.domain.usecases
 
-import com.example.myapplication.data.remote.dto.RecipeDto
 import com.example.myapplication.domain.Repository
 
-class AddRecipeUseCase(
+class GetAllTagsUseCase(
     private val repository: Repository
 ) {
     suspend operator fun invoke(
-        recipe: RecipeDto
-    ) = repository.addRecipe(recipe)
+
+    ) = repository.getAllTags()
 }

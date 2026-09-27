@@ -1,4 +1,4 @@
-package com.example.myapplication.domain.usecase
+package com.example.myapplication.domain.usecases
 
 import com.example.myapplication.data.remote.dto.RecipeDto
 import com.example.myapplication.domain.Repository
