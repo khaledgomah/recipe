@@ -12,11 +12,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val useCase: RecipeUseCases): ViewModel() {
+    //1-state (data and state of screen)
     private val _uiState = MutableStateFlow(HomeViewState(
         isLoadingTags = true,
         isLoadingRecipes = true))
     val uiState: StateFlow<HomeViewState> = _uiState
 
+    //2Intent (actions on screen)
     fun onIntent(intent: HomeIntent) {
         when (intent) {
             HomeIntent.GetAllCategories -> {
@@ -36,13 +38,13 @@ class HomeViewModel(private val useCase: RecipeUseCases): ViewModel() {
          _uiState.emit(
              _uiState.value.copy(isLoadingRecipes = true)
          )
-         Log.d("testo","start all recipes")
+         Log.d("viewmodel logs","start all recipes")
          when(val response = useCase.getAllRecipes()) {
              is ApiResult.Error -> {
                  _uiState.emit(
                      _uiState.value.copy(isLoadingRecipes = false, recipesError = response.error)
                  )
-                 Log.d("testo", response.error.toString())
+                 Log.d("viewmodel logs", response.error.toString())
              }
              is ApiResult.Success -> {
                  _uiState.emit(
@@ -52,7 +54,7 @@ class HomeViewModel(private val useCase: RecipeUseCases): ViewModel() {
                          recipesError = null
                      )
                  )
-                 Log.d("testo", response.data.recipes.toString())
+                 Log.d("viewmodel logs", response.data.recipes.toString())
 
              }
          }
@@ -70,7 +72,7 @@ class HomeViewModel(private val useCase: RecipeUseCases): ViewModel() {
                 _uiState.emit(
                     _uiState.value.copy(isLoadingTags = false, tagsError = response.error)
                 )
-                Log.d("testo", response.error.toString())
+                Log.d("viewmodel logs", response.error.toString())
             }
             is ApiResult.Success ->
             {
@@ -79,7 +81,7 @@ class HomeViewModel(private val useCase: RecipeUseCases): ViewModel() {
                         tags =  response.data,
                         tagsError = null)
                 )
-                Log.d("testo", response.data.toString())
+                Log.d("viewmodel logs", response.data.toString())
             }
         }
     }

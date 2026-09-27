@@ -1,90 +1,64 @@
 package com.example.myapplication.presentation.screens
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.SearchBarDefaults
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.presentation.components.CustomChip
-import com.example.myapplication.domain.model.categories
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.domain.usecases.GetRecipesByMealUseCase
+import com.example.myapplication.presentation.components.CustomSearchBar
+import com.example.myapplication.presentation.components.MealSection
+import com.example.myapplication.presentation.components.SearchScreenTopBar
+import com.example.myapplication.presentation.intent.SearchIntent
+import com.example.myapplication.presentation.viewmodels.SearchViewModel
 
-
+val borderColor = Color(0xFFE6EBF2)
 @Composable
+@Preview
 fun SearchScreen() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        var selectedCategory:Int by rememberSaveable { mutableIntStateOf(categories.first().id) }
-        CustomSearchBar()
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding =PaddingValues(horizontal = 16.dp)
-        ) {
-//            items(categories) {category ->
-//                CustomChip(selectedCategoryID = selectedCategory, onClick = {
-//                    selectedCategory = it
-//                }, category = category)
-//            }
-        }
-        }
+    val viewModel: SearchViewModel = viewModel(
+        factory = SearchViewModelFactory(
+            GetRecipesByMealUseCase(AppContainer.repository)
+        )
+    )
+    val state = viewModel.uiState.collectAsState().value
+    LaunchedEffect(Unit){
+        viewModel.onIntent(SearchIntent.GetAllRecipes)
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)) {
+        SearchScreenTopBar(onBackClick = {})
+        Spacer(modifier = Modifier.height(10.dp))
+        CustomSearchBar(modifier = Modifier.padding(horizontal = 24.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+        MealSection(viewModel = viewModel)
+    }
     }
 
 
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomSearchBar() {
-    var text by rememberSaveable() { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
-
-    SearchBar(
-        inputField = {
-            SearchBarDefaults.InputField(
-                query = text,
-                onQueryChange = { text = it },
-                onSearch = {
-                    expanded = false
-                },
-                expanded = false,
-                onExpandedChange = { expanded = it },
-                placeholder = { Text("Search") },
-                leadingIcon = {
-                    Icon(Icons.Default.Search, contentDescription = "Search icon")
-                },
-                trailingIcon = {
-                    if (expanded) {
-                        IconButton(onClick = {
-                                expanded = false
-                        }) {
-                            Icon(Icons.Default.Close, contentDescription = "Close icon")
-                        }
-                    }
-                }
-            )
-        },
-        expanded = false,
-
-        onExpandedChange = { expanded = it },
-        modifier = Modifier
-    ) {
+class SearchViewModelFactory(
+    private val getRecipesByMealUseCase: GetRecipesByMealUseCase
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return SearchViewModel(getRecipesByMealUseCase) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

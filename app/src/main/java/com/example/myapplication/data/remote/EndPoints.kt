@@ -12,4 +12,5 @@ object EndPoints {
     const val ADD_RECIPE = "$BASE_URL/recipes/add"
     const val DELETE_RECIPE = "$BASE_URL/recipes"
     const val UPDATE_RECIPE = "$BASE_URL/recipes"
+    const val GET_RECIPES_BY_MEAL = "$BASE_URL/recipes/meal-type"
 }

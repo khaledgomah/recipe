@@ -148,7 +148,7 @@ object AppContainer {
     private val recipeApi: RecipeApi =
         RecipeApiImplementation(client)
 
-    private val repository: Repository =
+    val repository: Repository =
         RepositoryImplementation(recipeApi)
 
     val recipeUseCases: RecipeUseCases =

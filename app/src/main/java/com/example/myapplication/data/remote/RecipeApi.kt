@@ -1,5 +1,6 @@
 package com.example.myapplication.data.remote
 
+import com.example.myapplication.data.remote.dto.Meal
 import com.example.myapplication.data.remote.dto.RecipeDto
 import com.example.myapplication.data.remote.dto.RecipesResponseDto
 
@@ -31,4 +32,6 @@ interface RecipeApi {
 
     suspend fun getAllTags(
     ): List<String>
+    suspend fun getRecipesByMeal(meal: Meal
+    ): RecipesResponseDto
 }

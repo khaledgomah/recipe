@@ -1,6 +1,5 @@
 package com.example.myapplication.presentation.components
 
-import com.example.myapplication.domain.model.Category
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults

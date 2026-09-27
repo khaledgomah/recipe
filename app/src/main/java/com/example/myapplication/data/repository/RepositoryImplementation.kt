@@ -3,6 +3,7 @@ package com.example.myapplication.data.repository
 import com.example.myapplication.core.ApiCall.safeApiCall
 import com.example.myapplication.core.ApiResult
 import com.example.myapplication.data.remote.RecipeApi
+import com.example.myapplication.data.remote.dto.Meal
 import com.example.myapplication.data.remote.dto.RecipeDto
 import com.example.myapplication.data.remote.dto.RecipesResponseDto
 import com.example.myapplication.domain.Repository
@@ -91,6 +92,14 @@ class RepositoryImplementation(
             recipeApi.updateRecipe(
                 id = id,
                 recipe = recipe
+            )
+        }
+    }
+
+    override suspend fun getRecipesByMeal(meal: Meal): ApiResult<RecipesResponseDto> {
+        return safeApiCall {
+            recipeApi.getRecipesByMeal(
+                meal = meal
             )
         }
     }

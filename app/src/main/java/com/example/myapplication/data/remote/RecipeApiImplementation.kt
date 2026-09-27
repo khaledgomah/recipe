@@ -1,5 +1,6 @@
 package com.example.myapplication.data.remote
 
+import com.example.myapplication.data.remote.dto.Meal
 import com.example.myapplication.data.remote.dto.RecipeDto
 import com.example.myapplication.data.remote.dto.RecipesResponseDto
 import io.ktor.client.HttpClient
@@ -82,4 +83,11 @@ class RecipeApiImplementation(
         return client.get(EndPoints.GET_ALL_TAGS) {
         }.body()
     }
+
+    override suspend fun getRecipesByMeal(meal: Meal): RecipesResponseDto {
+        return client.get("${EndPoints.GET_RECIPES_BY_MEAL}/$meal") {
+        }.body()
+    }
 }
+
+
