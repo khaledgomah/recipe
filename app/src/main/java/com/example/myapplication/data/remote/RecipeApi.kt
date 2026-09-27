@@ -6,8 +6,8 @@ import com.example.myapplication.data.remote.dto.RecipesResponseDto
 interface RecipeApi {
 
     suspend fun getAllRecipes(
-        limit:Int,
-        skip: Int
+        limit:Int?= null,
+        skip: Int?= null
     ): RecipesResponseDto
 
     suspend fun getSingleRecipe(id:Int): RecipeDto
@@ -28,4 +28,7 @@ interface RecipeApi {
         id: Int,
         recipe: RecipeDto
     ): RecipeDto
+
+    suspend fun getAllTags(
+    ): List<String>
 }

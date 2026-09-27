@@ -17,8 +17,8 @@ class RecipeApiImplementation(
     private val client: HttpClient
 ): RecipeApi {
     override suspend fun getAllRecipes(
-        limit: Int,
-        skip: Int
+        limit: Int?,
+        skip: Int?
     ): RecipesResponseDto {
 
         return client.get(EndPoints.GET_ALL_RECIPES) {
@@ -76,5 +76,10 @@ class RecipeApiImplementation(
                 setBody(recipe)
             }.body()
 
+    }
+
+    override suspend fun getAllTags(): List<String> {
+        return client.get(EndPoints.GET_ALL_TAGS) {
+        }.body()
     }
 }
