@@ -24,13 +24,6 @@ import com.example.myapplication.data.remote.RecipeApiImplementation
 import com.example.myapplication.data.repository.RepositoryImplementation
 import com.example.myapplication.domain.Repository
 import com.example.myapplication.domain.usecases.AddRecipeUseCase
-import com.example.myapplication.domain.usecase.DeleteRecipeUseCase
-import com.example.myapplication.domain.usecase.GetAllRecipesUseCase
-import com.example.myapplication.domain.usecase.GetAllTagsUseCase
-import com.example.myapplication.domain.usecase.GetRecipesByTagUseCase
-import com.example.myapplication.domain.usecase.GetSingleRecipeUseCase
-import com.example.myapplication.domain.usecase.SearchRecipesUseCase
-import com.example.myapplication.domain.usecase.UpdateRecipeUseCase
 import com.example.myapplication.domain.usecases.*
 import com.example.myapplication.presentation.components.WelcomePanner
 import com.example.myapplication.presentation.intent.HomeIntent
@@ -77,7 +70,9 @@ fun HomeScreen() {
         }
 
         item {
-            CategorySection( categories = state.tags)
+            CategorySection( state = state, onRetry = {
+                viewModel.onIntent(HomeIntent.GetAllCategories)
+            })
         }
 
         item {

@@ -3,7 +3,7 @@ package com.example.myapplication.presentation.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.data.remote.dto.RecipeDto
+import com.example.myapplication.core.ApiResult
 import com.example.myapplication.domain.usecases.RecipeUseCases
 import com.example.myapplication.presentation.intent.HomeIntent
 import com.example.myapplication.presentation.view_states.HomeViewState
@@ -12,44 +12,73 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val useCase: RecipeUseCases): ViewModel() {
-    private val _uiState = MutableStateFlow(HomeViewState())
+    private val _uiState = MutableStateFlow(HomeViewState(
+        isLoadingTags = true,
+        isLoadingRecipes = true))
     val uiState: StateFlow<HomeViewState> = _uiState
 
-    init {
-        viewModelScope.launch {
-            _uiState.emit(HomeViewState())
-        }
-    }
     fun onIntent(intent: HomeIntent) {
         when (intent) {
             HomeIntent.GetAllCategories -> {
                 viewModelScope.launch {
-                    val result =getAllCategories().also{
-                        Log.d("api results",it.toString())
-                    }
+                    getAllCategories()
                 }
             }
 
             HomeIntent.GetAllRecipes -> {
                 viewModelScope.launch {
-                    val result = getAllRecipes()
-                    Log.d("api results",result.toString())
-
+                    getAllRecipes()
                 }
             }
         }
     }
      private suspend fun getAllRecipes() {
          Log.d("testo","start all recipes")
-       val result = useCase.getAllRecipes()
-         _uiState.emit(
-             HomeViewState(isLoading = false, recipes =  result.recipes?: emptyList())
-         )
-         Log.d("testo", result.recipes.toString())
+         when(val response = useCase.getAllRecipes()) {
+             is ApiResult.Error -> {
+                 _uiState.emit(
+                     _uiState.value.copy(isLoadingRecipes = false, recipesError = response.error)
+                 )
+                 Log.d("testo", response.error.toString())
+             }
+             is ApiResult.Success -> {
+                 _uiState.emit(
+                     _uiState.value.copy(
+                         isLoadingRecipes = false,
+                         recipes =  response.data.recipes?: emptyList(),
+                         recipesError = null
+                     )
+                 )
+                 Log.d("testo", response.data.recipes.toString())
+
+             }
+         }
     }
     private suspend fun getAllCategories() {
-        val list = useCase.getAllTags()
-        _uiState.emit(HomeViewState(isLoading = false, tags = list))
+
+        _uiState.emit(
+            _uiState.value.copy(isLoadingTags = true)
+        )
+        when (val response = useCase.getAllTags())
+        {
+
+            is ApiResult.Error ->
+            {
+                _uiState.emit(
+                    _uiState.value.copy(isLoadingTags = false, tagsError = response.error)
+                )
+                Log.d("testo", response.error.toString())
+            }
+            is ApiResult.Success ->
+            {
+                _uiState.emit(
+                    _uiState.value.copy(isLoadingTags = false,
+                        tags =  response.data,
+                        tagsError = null)
+                )
+                Log.d("testo", response.data.toString())
+            }
+        }
     }
 }
 
