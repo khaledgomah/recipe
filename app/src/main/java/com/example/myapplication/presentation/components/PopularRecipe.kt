@@ -1,4 +1,4 @@
-package com.example.myapplication.presentation.screens
+package com.example.myapplication.presentation.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -20,9 +20,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.presentation.components.RecipeCard
-import com.example.myapplication.presentation.components.SectionHeader
-import com.example.myapplication.presentation.components.CategoryErrorState
 import com.example.myapplication.presentation.view_states.HomeViewState
 
 @Composable
@@ -58,7 +55,7 @@ fun PopularRecipes(
 }
 
 @Composable
-fun RecipeLoadingShimmer(modifier: Modifier = Modifier) {
+fun RecipeLoadingShimmer() {
     val shimmerColors = listOf(
         Color.LightGray.copy(alpha = 0.6f),
         Color.LightGray.copy(alpha = 0.2f),

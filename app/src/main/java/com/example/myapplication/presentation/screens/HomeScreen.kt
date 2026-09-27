@@ -25,6 +25,7 @@ import com.example.myapplication.data.repository.RepositoryImplementation
 import com.example.myapplication.domain.Repository
 import com.example.myapplication.domain.usecases.AddRecipeUseCase
 import com.example.myapplication.domain.usecases.*
+import com.example.myapplication.presentation.components.PopularRecipes
 import com.example.myapplication.presentation.components.WelcomePanner
 import com.example.myapplication.presentation.intent.HomeIntent
 import com.example.myapplication.presentation.viewmodels.HomeViewModel

@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SearchScreenTopBar(modifier: Modifier = Modifier,onBackClick: () -> Unit): Unit {
+fun SearchScreenTopBar(modifier: Modifier = Modifier,onBackClick: () -> Unit) {
     Box(
         modifier = modifier
             .fillMaxWidth()
