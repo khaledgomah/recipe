@@ -38,11 +38,11 @@ fun SearchScreen() {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding =PaddingValues(horizontal = 16.dp)
         ) {
-            items(categories) {category ->
-                CustomChip(selectedCategoryID = selectedCategory, onClick = {
-                    selectedCategory = it
-                }, category = category)
-            }
+//            items(categories) {category ->
+//                CustomChip(selectedCategoryID = selectedCategory, onClick = {
+//                    selectedCategory = it
+//                }, category = category)
+//            }
         }
         }
     }

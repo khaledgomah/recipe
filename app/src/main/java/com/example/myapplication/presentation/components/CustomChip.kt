@@ -11,11 +11,11 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.presentation.screens.secondary
 
 @Composable
-fun CustomChip(category: Category, selectedCategoryID: Int, onClick:  (Int) -> Unit)
+fun CustomChip(category: String, isSelected: Boolean, onClick:  () -> Unit)
 {
-    FilterChip(label = { Text(category.name) },
-        selected = selectedCategoryID == category.id,
-        onClick = { onClick(category.id) },
+    FilterChip(label = { Text(category) },
+        selected = isSelected,
+        onClick = onClick,
         shape = RoundedCornerShape(40.dp),
         colors = FilterChipDefaults.filterChipColors().copy(
             containerColor= Color(0xffF1F5F5),

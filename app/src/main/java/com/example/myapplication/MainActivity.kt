@@ -24,9 +24,7 @@ import com.example.myapplication.presentation.navigation.OnboardingRoute
 import com.example.myapplication.presentation.navigation.Profile
 import com.example.myapplication.presentation.navigation.Search
 import io.ktor.client.HttpClient
-import io.ktor.client.statement.HttpResponse
-import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsText
+
 
 import androidx.compose.ui.graphics.Color
 
@@ -38,7 +36,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
-
         setContent {
             var hasCompletedOnboarding by rememberSaveable {
                 mutableStateOf(false)
