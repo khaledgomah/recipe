@@ -33,6 +33,9 @@ class HomeViewModel(private val useCase: RecipeUseCases): ViewModel() {
         }
     }
      private suspend fun getAllRecipes() {
+         _uiState.emit(
+             _uiState.value.copy(isLoadingRecipes = true)
+         )
          Log.d("testo","start all recipes")
          when(val response = useCase.getAllRecipes()) {
              is ApiResult.Error -> {

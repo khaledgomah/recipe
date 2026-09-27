@@ -1,6 +1,5 @@
 package com.example.myapplication.presentation.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,12 +23,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.myapplication.R
-import com.example.myapplication.domain.model.RecipeModel
+import com.example.myapplication.data.remote.dto.RecipeDto
 import com.example.myapplication.presentation.screens.gray
 
 @Composable
-fun RecipeCard(recipe: RecipeModel)
+fun RecipeCard(recipe: RecipeDto)
 {
     Column(modifier = Modifier
         .width(200.dp)
@@ -37,13 +37,18 @@ fun RecipeCard(recipe: RecipeModel)
         .background(Color.White)
         .padding(16.dp)
     ) {
-        Image(
-            painter = painterResource(recipe.image)
-            , modifier = Modifier.fillMaxWidth()
-            , contentDescription = null,
-            contentScale = ContentScale.Crop)
+        AsyncImage(
+            model = recipe.image,
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .clip(shape = RoundedCornerShape(16.dp)),
+            contentScale = ContentScale.Crop
+        )
         Spacer(modifier = Modifier.height(12.dp))
-        Text(recipe.title)
+        Text(recipe.name)
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -52,7 +57,7 @@ fun RecipeCard(recipe: RecipeModel)
                 contentDescription = null,
                 tint = gray)
             Spacer(Modifier.width(4.dp))
-            Text("${recipe.cal} Kcal", style = TextStyle(color = gray))
+            Text("${recipe.caloriesPerServing} Kcal", style = TextStyle(color = gray))
             Spacer(Modifier.width(8.dp))
             Box(modifier = Modifier
                 .size(8.dp)
@@ -67,7 +72,7 @@ fun RecipeCard(recipe: RecipeModel)
                 painter = painterResource(R.drawable.time),
                 contentDescription = null)
             Spacer(Modifier.width(4.dp))
-            Text("${recipe.time} Min", style = TextStyle(color = gray))
+            Text("${recipe.prepTimeMinutes + recipe.cookTimeMinutes} Min", style = TextStyle(color = gray))
         }
 
     }

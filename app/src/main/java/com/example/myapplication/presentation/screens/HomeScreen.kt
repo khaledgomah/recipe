@@ -76,7 +76,12 @@ fun HomeScreen() {
         }
 
         item {
-            PopularRecipes()
+            PopularRecipes(
+                state = state,
+                onRetry = {
+                    viewModel.onIntent(HomeIntent.GetAllRecipes)
+                }
+            )
         }
 
         item {
